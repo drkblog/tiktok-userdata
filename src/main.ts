@@ -44,5 +44,3 @@ function loadData(userdataJsonFilename: string): TiktokUserdata {
     throw err;
   }
 }
-
-
