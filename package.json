@@ -1,0 +1,29 @@
+{
+  "name": "tiktok-userdata",
+  "version": "1.0.0",
+  "description": "TikTok userdata reader",
+  "main": "dist/main.js",
+  "types": "dist/main.d.ts",
+  "scripts": {
+    "build" : "tsc"
+  },
+  "private": true,
+  "keywords": ["tiktok"],
+  "author": "Leandro Hernan Fernandez <drkbugs@gmail.com> (https://drkbugs.com)",
+  "license": "MIT OR Apache-2.0",
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/drkblog/tiktok-userdata"
+  },
+  "bin": {
+    "tiktok-userdata": "./dist/main.js"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.0.3",
+    "@types/node": "^17.0.4",
+    "@typescript-eslint/eslint-plugin": "^4.16.1",
+    "@typescript-eslint/parser": "^4.16.1",
+    "typescript": "^4.5.4",
+    "jest": "^27.4.5"
+  }
+}
