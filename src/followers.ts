@@ -1,4 +1,4 @@
-import { TikTokFan, TiktokUserdata } from "./tiktok-userdata";
+import { TiktokUser, TiktokUserdata } from "./tiktok-userdata";
 
 export class Followers {
   private followers: FollowerMapType;
@@ -6,15 +6,25 @@ export class Followers {
     this.followers = followers;
   }
 
-  public findByUsername(username: string): TikTokFan {
-    return this.followers[username];
+  public findByUsername(username: string): TiktokUser | undefined {
+    return this.followers.get(username);
+  }
+
+  public findFollowersBefore(date: Date): TiktokUser[] {
+    let result: TiktokUser[] = [];
+    for (let value of this.followers.values()) {
+      if (value.Date.getTime() <= date.getTime()) {
+        result.push(value);
+      }
+    }
+    return result;
   }
 }
 
-type FollowerMapType = Record<string, TikTokFan>;
+type FollowerMapType = Map<string, TiktokUser>;
 
 export function followersFromData(userdata: TiktokUserdata): Followers {
-  const followersRaw: TikTokFan[] = userdata.Activity['Follower List'].FansList;
-  const followerMap: FollowerMapType = followersRaw.reduce((map, item: TikTokFan) => (map[item.UserName] = item, map), {} as FollowerMapType);
+  const followersRaw: TiktokUser[] = userdata.Activity['Follower List'].FansList;
+  const followerMap: FollowerMapType = followersRaw.reduce((map: FollowerMapType, item: TiktokUser) => (map.set(item.UserName, item), map), new Map<string, TiktokUser>());
   return new Followers(followerMap);
 }
