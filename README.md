@@ -21,10 +21,26 @@ And a username to search for using the `-u` option.
 
 ```
 $ node . -d user_data.json fanlookup -u gzalo.com
-{ Date: '2021-08-18 22:51:15', UserName: 'gzalo.com' }
+{ Date: '2021-11-11T01:22:22.000Z', UserName: 'gzalo.com' }
 ```
 
 If present you will get the user record with the date the follower started following you.
+
+## Fans matching username
+
+To search for a list of followers whose username contain a substring.
+You have to provide the JSON you get from Tiktok using the `-d` option.
+And a substring to match using the `-s` option.
+
+```
+$ node . -d user_data.json fansmatching -s developer
+Usernames matching developer
+[
+  { Date: 2021-11-11T01:22:22.000Z, UserName: 'j.developers' },
+  { Date: 2021-11-11T01:22:22.000Z, UserName: 'lean.developer' }
+]
+2 records matched
+```
 
 ## Fans before date
 

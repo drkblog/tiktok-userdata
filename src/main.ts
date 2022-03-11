@@ -6,6 +6,7 @@ import { Statistics, statisticsFromData } from "./statistics";
 
 const CMD_STATS = 'stats';
 const CMD_FANLOOKUP = 'fanlookup';
+const CMD_FANSMATCHING = 'fansmatching';
 const CMD_FANSBEFORE = 'fansbefore';
 
 const argv = yargs
@@ -22,6 +23,17 @@ const argv = yargs
         type: 'string'
       })
       .demandOption(['username'], 'Please provide the username');
+  })
+  .command(
+    CMD_FANSMATCHING,
+    'Search for follower with usernames containing a substring',
+    (yargs: Argv) => {
+      return yargs.option('substring', {
+        alias: 's',
+        describe: 'substring to match',
+        type: 'string'
+      })
+      .demandOption(['substring'], 'Please provide the substring');
   })
   .command(
     CMD_FANSBEFORE,
@@ -57,6 +69,18 @@ if (argv._.includes(CMD_FANLOOKUP)) {
     const userdata = loadData(argv.userdata);
     const followers = followersFromData(userdata);
     console.log(followers.findByUsername(username));
+  }
+}
+
+if (argv._.includes(CMD_FANSMATCHING)) {
+  if (typeof argv.substring === 'string') {
+    const substring: string = argv.substring;
+    console.log(`Usernames matching ${substring}`);
+    const userdata = loadData(argv.userdata);
+    const followers = followersFromData(userdata);
+    const result = followers.searchMatchingUsername(substring);
+    console.log(result);
+    console.log(`${result?.length} records matched`);
   }
 }
 
