@@ -32,6 +32,11 @@ export type Status = {
   OpenUdid: string;
   Clientudid: string;
 }
+export type Video = {
+  Date: Date;
+  VideoLink: string;
+  Likes: number;
+}
 
 export type TikTokFollowers = {
   FansList: TiktokUser[];
@@ -67,7 +72,7 @@ export type TikTokVideo = {
 }
 
 export type TikTokVideos = {
-  VideoList: string[];
+  VideoList: Video[];
 }
 
 export type Block = {

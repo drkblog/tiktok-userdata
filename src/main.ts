@@ -3,11 +3,13 @@ import yargs, {Argv} from "yargs";
 import { TiktokUserdata } from "./tiktok-userdata";
 import { followersFromData } from "./followers";
 import { Statistics, statisticsFromData } from "./statistics";
+import { videosFromData } from "./videos";
 
 const CMD_STATS = 'stats';
 const CMD_FANLOOKUP = 'fanlookup';
 const CMD_FANSMATCHING = 'fansmatching';
 const CMD_FANSBEFORE = 'fansbefore';
+const CMD_VIDEOS = 'videos';
 
 const argv = yargs
   .command(
@@ -45,6 +47,16 @@ const argv = yargs
         type: 'string'
       })
       .demandOption(['date'], 'Please provide the limit date');
+  })
+  .command(
+    CMD_VIDEOS,
+    'Export videos as CSV',
+    (yargs: Argv) => {
+      return yargs.option('date', {
+        alias: 's',
+        describe: 'starting date',
+        type: 'string'
+      });
   })
   .option('userdata', {
     alias: 'd',
@@ -92,6 +104,17 @@ if (argv._.includes(CMD_FANSBEFORE)) {
     const userdata = loadData(argv.userdata);
     const followers = followersFromData(userdata);
     console.log(followers.findFollowersBefore(date));
+  }
+}
+
+if (argv._.includes(CMD_VIDEOS)) {
+  if (typeof argv.date === 'string') {
+    const dateString: string = argv.date;
+    const date: Date = new Date(dateString);
+    console.log(`Exporting videos after ${date}`);
+    const userdata = loadData(argv.userdata);
+    const videos = videosFromData(userdata);
+    console.log(videos);
   }
 }
 

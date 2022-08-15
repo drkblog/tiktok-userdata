@@ -1,6 +1,6 @@
 {
   "name": "tiktok-userdata",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "TikTok userdata reader",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
